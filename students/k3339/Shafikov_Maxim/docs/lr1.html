@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Лабораторная работа 1 — Шафиков Максим</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    Шафиков Максим · k3339
+  </div>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="lr1.html" class="active">Лаба 1</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Лабораторная работа 1</h1>
+    <p>Реализация серверного приложения FastAPI. Сервис управления личными финансами.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        <a href="https://github.com/MrAmfix/ITMO_ICT_WebDevelopment_tools_2025-2026" target="_blank">Код на GitHub</a>
+      </div>
+      <div class="meta-item"><span class="badge">Готово</span></div>
+    </div>
+  </div>
+
+  <!-- Цель -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      Цель работы
+    </h2>
+    <p>Реализовать полноценное серверное приложение с помощью фреймворка FastAPI с применением дополнительных средств и библиотек: SQLAlchemy async ORM, PostgreSQL, Alembic, JWT-авторизация.</p>
+    <p>Тема варианта — <strong>сервис управления личными финансами</strong>: учёт доходов и расходов, категории, бюджеты, цели, теги.</p>
+  </div>
+
+  <!-- Практики -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Выполненные практики
+    </h2>
+    <p>Лабораторная работа выполнена целостно: функциональность практик 1.1, 1.2 и 1.3 реализована в рамках одного приложения и одного итогового этапа разработки.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="commit-dot" style="background: var(--success)"></div>
+        <div class="commit-info">
+          <div class="commit-msg">Практика 1.1 — базовый FastAPI + Pydantic + CRUD</div>
+          <div class="commit-sub">Реализовано приложение FastAPI, структура API-роутеров, Pydantic-схемы Read/Create/Update, базовые CRUD-эндпоинты, автодокументация Swagger.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="commit-dot" style="background: var(--success)"></div>
+        <div class="commit-info">
+          <div class="commit-msg">Практика 1.2 — БД, ORM и связи</div>
+          <div class="commit-sub">Подключены PostgreSQL + Async SQLAlchemy, реализованы ORM-модели с отношениями one-to-many и many-to-many, работа через сессии и CRUD-операции по данным из БД.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="commit-dot" style="background: var(--success)"></div>
+        <div class="commit-info">
+          <div class="commit-msg">Практика 1.3 — Alembic, .env, структура проекта</div>
+          <div class="commit-sub">Добавлены Alembic-миграции, конфигурация через python-dotenv, файл .gitignore и модульная структура проекта (api/core/crud/models/schemas).</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="commit-dot" style="background: var(--success)"></div>
+        <div class="commit-info">
+          <div class="commit-msg">Итог ЛР1</div>
+          <div class="commit-sub">JWT-аутентификация, защищенные эндпоинты, хэширование паролей, generic BaseCrud, работа с категориями, транзакциями, бюджетами, целями и тегами.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Стек -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Стек технологий
+    </h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Компонент</th><th>Технология</th><th>Назначение</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Web-фреймворк</td><td><code>FastAPI</code></td><td>HTTP API, валидация, документация</td></tr>
+          <tr><td>ORM</td><td><code>SQLAlchemy 2.0 async</code></td><td>Работа с БД через Mapped[]</td></tr>
+          <tr><td>БД</td><td><code>PostgreSQL 16</code></td><td>Основное хранилище</td></tr>
+          <tr><td>Драйвер БД</td><td><code>asyncpg</code></td><td>Асинхронный драйвер PostgreSQL</td></tr>
+          <tr><td>Миграции</td><td><code>Alembic</code></td><td>Версионирование схемы БД</td></tr>
+          <tr><td>Авторизация</td><td><code>PyJWT</code></td><td>Генерация и верификация JWT</td></tr>
+          <tr><td>Пароли</td><td><code>passlib[bcrypt]</code></td><td>Хэширование паролей</td></tr>
+          <tr><td>Окружение</td><td><code>python-dotenv</code></td><td>Переменные окружения из .env</td></tr>
+          <tr><td>Инфраструктура</td><td><code>Docker Compose</code></td><td>Запуск PostgreSQL</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Структура проекта -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      Структура проекта
+    </h2>
+    <div class="file-tree">
+<span class="dir">Lr1/</span>
+├── <span class="dir">app/</span>
+│   ├── <span class="dir">api/</span>
+│   │   ├── <span class="dir">routers/</span>   <span class="note">      # auth, users, categories, tags, transactions, budgets, goals</span>
+│   │   └── <span class="file">dependencies.py</span>  <span class="note"># get_current_user dependency</span>
+│   ├── <span class="dir">core/</span>
+│   │   ├── <span class="file">config.py</span>        <span class="note"># переменные окружения</span>
+│   │   ├── <span class="file">database.py</span>      <span class="note"># async engine, get_session</span>
+│   │   └── <span class="file">security.py</span>      <span class="note"># JWT, bcrypt</span>
+│   ├── <span class="dir">crud/</span>
+│   │   ├── <span class="file">base.py</span>          <span class="note"># generic BaseCrud[Model, Get, Create, Update]</span>
+│   │   └── <span class="file">*.py</span>             <span class="note"># UserCrud, CategoryCrud, TagCrud, ...</span>
+│   ├── <span class="dir">models/</span>
+│   │   └── <span class="file">models.py</span>        <span class="note"># SQLAlchemy ORM модели</span>
+│   ├── <span class="dir">schemas/</span>
+│   │   └── <span class="file">*.py</span>             <span class="note"># Pydantic схемы Read/Create/Update</span>
+│   └── <span class="file">main.py</span>              <span class="note"># FastAPI app, routers, lifespan</span>
+├── <span class="dir">migrations/</span>              <span class="note"># Alembic</span>
+├── <span class="file">docker-compose.yml</span>
+├── <span class="file">.env</span>
+├── <span class="file">requirements.txt</span>
+└── <span class="file">pyproject.toml</span>           <span class="note"># black, isort</span>
+    </div>
+  </div>
+
+  <!-- Модель данных -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Модель данных
+    </h2>
+    <p>Реализовано 6 таблиц с отношениями <strong>one-to-many</strong> и <strong>many-to-many</strong>.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Таблица</th><th>Описание</th><th>Связи</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>user</code></td><td>Пользователи системы</td><td>→ transactions, budgets, goals</td></tr>
+          <tr><td><code>category</code></td><td>Категории (income / expense)</td><td>→ transactions, budgets</td></tr>
+          <tr><td><code>transaction</code></td><td>Финансовые транзакции</td><td>→ user, category, ↔ tags</td></tr>
+          <tr><td><code>budget</code></td><td>Бюджеты по категориям</td><td>→ user, category</td></tr>
+          <tr><td><code>goal</code></td><td>Финансовые цели</td><td>→ user</td></tr>
+          <tr><td><code>tag</code></td><td>Теги для транзакций</td><td>↔ transactions</td></tr>
+          <tr>
+            <td><code>transaction_tag</code></td>
+            <td>Ассоциативная сущность transaction ↔ tag</td>
+            <td>Поле <code>added_at</code> — дата добавления тега</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Подключение к БД</h3>
+    <pre><code># app/core/database.py
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from .config import DATABASE_URL, DB_ECHO
+
+engine = create_async_engine(DATABASE_URL, echo=DB_ECHO)
+
+async_session_maker = async_sessionmaker(
+    engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+)
+
+async def get_session() -> AsyncSession:
+    async with async_session_maker() as session:
+        yield session</code></pre>
+
+    <h3>Пример модели с отношениями</h3>
+    <pre><code># app/models/models.py
+class Transaction(Base):
+    __tablename__ = "transaction"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    amount: Mapped[float] = mapped_column(Float, nullable=False)
+    description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    date: Mapped[date] = mapped_column(Date, nullable=False)
+
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
+    category_id: Mapped[int] = mapped_column(ForeignKey("category.id"))
+
+    user: Mapped["User"] = relationship("User", back_populates="transactions", lazy="selectin")
+    category: Mapped["Category"] = relationship("Category", lazy="selectin")
+    tags: Mapped[List["Tag"]] = relationship(
+        "Tag", secondary="transaction_tag", lazy="selectin"
+    )</code></pre>
+  </div>
+
+  <!-- Generic CRUD -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Generic BaseCrud
+    </h2>
+    <p>Все CRUD-классы наследуются от общего <code>BaseCrud</code>, параметризованного через Generic. Специфичная логика добавляется в подклассах.</p>
+    <pre><code># app/crud/base.py
+class BaseCrud(Generic[ModelT, GetSchemaT, CreateSchemaT, UpdateSchemaT]):
+    base_model: ClassVar[Type[ModelT]]
+    get_schema: ClassVar[Type[GetSchemaT]]
+
+    @classmethod
+    async def get_by_id(cls, session, record_id) -> Optional[GetSchemaT]: ...
+
+    @classmethod
+    async def get_all(cls, session, offset=0, limit=100) -> List[GetSchemaT]: ...
+
+    @classmethod
+    async def create(cls, session, **kwargs) -> GetSchemaT: ...
+
+    @classmethod
+    async def update(cls, session, record_id, **kwargs) -> Optional[GetSchemaT]: ...
+
+    @classmethod
+    async def delete(cls, session, record_id) -> None: ...</code></pre>
+
+    <pre><code># app/crud/user.py — пример наследования
+class UserCrud(BaseCrud[User, UserRead, UserCreate, UserUpdate]):
+    base_model = User
+    get_schema = UserRead
+
+    @classmethod
+    async def get_by_username(cls, session, username) -> Optional[UserRead]: ...
+
+    @classmethod
+    async def create_user(cls, session, data: UserCreate) -> UserRead: ...</code></pre>
+  </div>
+
+  <!-- Авторизация -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Авторизация
+    </h2>
+    <p>Авторизация реализована вручную без сторонних auth-библиотек. Используются <code>PyJWT</code> для токенов и <code>passlib[bcrypt]</code> для паролей.</p>
+
+    <h3>Хэширование паролей</h3>
+    <pre><code># app/core/security.py
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def hash_password(password: str) -> str:
+    return pwd_context.hash(password)
+
+def verify_password(plain: str, hashed: str) -> bool:
+    return pwd_context.verify(plain, hashed)</code></pre>
+
+    <h3>Генерация и верификация JWT</h3>
+    <pre><code>def create_access_token(payload: dict) -> str:
+    data = payload.copy()
+    data["exp"] = datetime.now(timezone.utc) + timedelta(minutes=JWT_EXPIRE_MINUTES)
+    return jwt.encode(data, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
+
+def decode_access_token(token: str) -> dict:
+    return jwt.decode(token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])</code></pre>
+
+    <h3>Dependency получения текущего пользователя</h3>
+    <pre><code># app/api/dependencies.py
+async def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(HTTPBearer()),
+    session: AsyncSession = Depends(get_session),
+) -> UserRead:
+    token = credentials.credentials
+    payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
+    user_id = payload.get("sub")
+    user = await UserCrud.get_by_id(session, user_id)
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    return user</code></pre>
+  </div>
+
+  <!-- Эндпоинты -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      API Эндпоинты
+    </h2>
+
+    <h3>Auth</h3>
+    <div class="endpoint-list">
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <div><div class="endpoint-path">/auth/register</div><div class="endpoint-desc">Регистрация нового пользователя</div></div>
+      </div>
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <div><div class="endpoint-path">/auth/login</div><div class="endpoint-desc">Вход, возвращает JWT access token</div></div>
+      </div>
+    </div>
+
+    <h3>Users</h3>
+    <div class="endpoint-list">
+      <div class="endpoint">
+        <span class="method get">GET</span>
+        <div><div class="endpoint-path">/users/</div><div class="endpoint-desc">Список пользователей (по требованиям лабораторной)</div></div>
+      </div>
+      <div class="endpoint">
+        <span class="method get">GET</span>
+        <div><div class="endpoint-path">/users/me</div><div class="endpoint-desc">Информация о текущем пользователе</div></div>
+      </div>
+      <div class="endpoint">
+        <span class="method patch">PATCH</span>
+        <div><div class="endpoint-path">/users/me</div><div class="endpoint-desc">Обновление профиля</div></div>
+      </div>
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <div><div class="endpoint-path">/users/me/change-password</div><div class="endpoint-desc">Смена пароля</div></div>
+      </div>
+      <div class="endpoint">
+        <span class="method delete">DELETE</span>
+        <div><div class="endpoint-path">/users/me</div><div class="endpoint-desc">Удаление аккаунта</div></div>
+      </div>
+    </div>
+
+    <h3>Categories</h3>
+    <div class="endpoint-list">
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/categories/</div><div class="endpoint-desc">Список всех категорий</div></div></div>
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/categories/{id}</div><div class="endpoint-desc">Категория по ID</div></div></div>
+      <div class="endpoint"><span class="method post">POST</span><div><div class="endpoint-path">/categories/</div><div class="endpoint-desc">Создать категорию</div></div></div>
+      <div class="endpoint"><span class="method patch">PATCH</span><div><div class="endpoint-path">/categories/{id}</div><div class="endpoint-desc">Обновить категорию</div></div></div>
+      <div class="endpoint"><span class="method delete">DELETE</span><div><div class="endpoint-path">/categories/{id}</div><div class="endpoint-desc">Удалить категорию</div></div></div>
+    </div>
+
+    <h3>Tags</h3>
+    <div class="endpoint-list">
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/tags/</div><div class="endpoint-desc">Список всех тегов</div></div></div>
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/tags/{id}</div><div class="endpoint-desc">Тег по ID</div></div></div>
+      <div class="endpoint"><span class="method post">POST</span><div><div class="endpoint-path">/tags/</div><div class="endpoint-desc">Создать тег (уникальное имя)</div></div></div>
+      <div class="endpoint"><span class="method delete">DELETE</span><div><div class="endpoint-path">/tags/{id}</div><div class="endpoint-desc">Удалить тег</div></div></div>
+    </div>
+
+    <h3>Transactions</h3>
+    <div class="endpoint-list">
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/transactions/</div><div class="endpoint-desc">Транзакции текущего пользователя (с категорией и тегами)</div></div></div>
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/transactions/{id}</div><div class="endpoint-desc">Транзакция по ID с вложенными объектами</div></div></div>
+      <div class="endpoint"><span class="method post">POST</span><div><div class="endpoint-path">/transactions/</div><div class="endpoint-desc">Создать транзакцию с привязкой тегов</div></div></div>
+      <div class="endpoint"><span class="method patch">PATCH</span><div><div class="endpoint-path">/transactions/{id}</div><div class="endpoint-desc">Обновить транзакцию</div></div></div>
+      <div class="endpoint"><span class="method delete">DELETE</span><div><div class="endpoint-path">/transactions/{id}</div><div class="endpoint-desc">Удалить транзакцию</div></div></div>
+    </div>
+    <p>При невалидных внешних ключах, конфликте уникальности или передаче несуществующих <code>tag_ids</code> API возвращает <code>400 Bad Request</code>.</p>
+
+    <h3>Budgets</h3>
+    <div class="endpoint-list">
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/budgets/</div><div class="endpoint-desc">Бюджеты текущего пользователя</div></div></div>
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/budgets/{id}</div><div class="endpoint-desc">Бюджет по ID</div></div></div>
+      <div class="endpoint"><span class="method post">POST</span><div><div class="endpoint-path">/budgets/</div><div class="endpoint-desc">Создать бюджет</div></div></div>
+      <div class="endpoint"><span class="method patch">PATCH</span><div><div class="endpoint-path">/budgets/{id}</div><div class="endpoint-desc">Обновить бюджет</div></div></div>
+      <div class="endpoint"><span class="method delete">DELETE</span><div><div class="endpoint-path">/budgets/{id}</div><div class="endpoint-desc">Удалить бюджет</div></div></div>
+    </div>
+
+    <h3>Goals</h3>
+    <div class="endpoint-list">
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/goals/</div><div class="endpoint-desc">Цели текущего пользователя</div></div></div>
+      <div class="endpoint"><span class="method get">GET</span><div><div class="endpoint-path">/goals/{id}</div><div class="endpoint-desc">Цель по ID</div></div></div>
+      <div class="endpoint"><span class="method post">POST</span><div><div class="endpoint-path">/goals/</div><div class="endpoint-desc">Создать цель</div></div></div>
+      <div class="endpoint"><span class="method patch">PATCH</span><div><div class="endpoint-path">/goals/{id}</div><div class="endpoint-desc">Обновить прогресс цели</div></div></div>
+      <div class="endpoint"><span class="method delete">DELETE</span><div><div class="endpoint-path">/goals/{id}</div><div class="endpoint-desc">Удалить цель</div></div></div>
+    </div>
+  </div>
+
+  <!-- Запуск -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Запуск проекта
+    </h2>
+    <pre><code># 1. Запустить PostgreSQL
+docker-compose up -d
+
+# 2. Установить зависимости
+pip install -r requirements.txt
+
+# 3. Применить миграции
+alembic upgrade head
+
+# 4. Запустить сервер
+uvicorn app.main:app --reload</code></pre>
+    <p>После запуска документация доступна по адресу <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></p>
+  </div>
+
+</div>
+</body>
+</html>
