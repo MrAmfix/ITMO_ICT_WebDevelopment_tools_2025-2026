@@ -1,13 +1,17 @@
 aiohttp>=3.9
 asyncpg>=0.29
+bcrypt==4.0.1
 beautifulsoup4>=4.12
 celery>=5.3
+email-validator>=2.3
 fastapi==0.135.3
+passlib>=1.7
 psycopg2-binary>=2.9
 pydantic>=2.12
 pydantic-settings>=2.13
 PyJWT>=2.12
 python-dotenv>=1.0
+python-multipart>=0.0.22
 redis>=5.0
 requests>=2.31
 SQLAlchemy[asyncio]>=2.0
