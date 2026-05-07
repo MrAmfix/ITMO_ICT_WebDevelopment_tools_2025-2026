@@ -19,7 +19,8 @@ Lr2/
 ├── README.md                  # этот файл
 ├── requirements.txt           # зависимости
 ├── .env-example               # пример переменных окружения
-├── config.py                  # общий конфиг (DATABASE_URL)
+├── docker-compose.yml         # PostgreSQL на конфигурируемом порту из .env
+├── config.py                  # общий конфиг (POSTGRES_* → DATABASE_URL)
 ├── database.py                # асинхронное подключение к БД (SQLAlchemy async)
 ├── models.py                  # модель ParsedPage
 ├── task1/
@@ -136,14 +137,14 @@ Lr2/
 ## Запуск
 
 ```bash
-# 1. Установить зависимости
-pip install -r requirements.txt
-
-# 2. Скопировать .env-example → .env и настроить БД
+# 1. Скопировать .env-example → .env (порт настраивается в POSTGRES_PORT)
 cp .env-example .env
 
-# 3. Запустить PostgreSQL (как в ЛР1)
-cd ../Lr1 && docker-compose up -d
+# 2. Поднять PostgreSQL (порт берётся из .env)
+docker-compose up -d
+
+# 3. Установить зависимости
+pip install -r requirements.txt
 
 # 4. Запустить задачу 1
 python task1/threading_sum.py
@@ -154,4 +155,7 @@ python task1/async_sum.py
 python task2/threading_parser.py
 python task2/multiprocessing_parser.py
 python task2/async_parser.py
+
+# 6. Остановить PostgreSQL
+docker-compose down
 ```
