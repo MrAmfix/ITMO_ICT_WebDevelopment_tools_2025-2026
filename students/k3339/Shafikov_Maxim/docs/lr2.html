@@ -25,7 +25,7 @@
   <!-- Hero -->
   <div class="hero">
     <h1>Лабораторная работа 2</h1>
-    <p>Потоки. Процессы. Асинхронность. Параллельный парсинг веб-страниц с сохранением в БД.</p>
+    <p>Потоки. Процессы. Асинхронность. Параллельное суммирование и парсинг веб-страниц с сохранением в БД.</p>
     <div class="meta-row">
       <div class="meta-item">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
@@ -41,75 +41,327 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
       Цель работы
     </h2>
-    <p>Понять отличия между потоками (threading), процессами (multiprocessing) и асинхронностью (asyncio) в Python, научиться применять каждый подход для параллельного выполнения задач — как вычислительных (CPU-bound), так и ввода-вывода (I/O-bound).</p>
+    <p>Понять отличия между потоками (threading), процессами (multiprocessing) и асинхронностью (asyncio) в Python. Научиться применять каждый подход для параллельного выполнения задач — как вычислительных (CPU-bound), так и ввода-вывода (I/O-bound).</p>
   </div>
 
-  <!-- Задача 1 -->
+  <!-- Задачи -->
   <div class="section">
     <h2>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-      Задача 1 — Сумма чисел
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Выполненные задачи
     </h2>
-    <p>Вычисление суммы от 1 до 1 000 000 000 с разбиением на 8 подзадач тремя разными подходами:</p>
 
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="commit-dot" style="background: var(--success)"></div>
+        <div class="commit-info">
+          <div class="commit-msg">Задача 1 — Параллельное суммирование</div>
+          <div class="commit-sub">Три программы: threading, multiprocessing, async (to_thread). Вычисление суммы 1..1 000 000 000 с разбивкой на 8 подзадач. Замер времени, проверка результата формулой n·(n+1)/2.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="commit-dot" style="background: var(--success)"></div>
+        <div class="commit-info">
+          <div class="commit-msg">Задача 2 — Параллельный парсинг веб-страниц</div>
+          <div class="commit-sub">Три программы: threading + requests + psycopg2, multiprocessing + requests + psycopg2, async + aiohttp + asyncpg. Парсинг 10 URL, извлечение &lt;title&gt;, сохранение в PostgreSQL (таблица parsed_page).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Стек -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Стек технологий
+    </h2>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Подход</th><th>Механизм</th><th>Модуль</th></tr>
+          <tr><th>Компонент</th><th>Технология</th><th>Назначение</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>threading</strong></td><td>Потоки (один процесс)</td><td><code>threading.Thread</code></td></tr>
-          <tr><td><strong>multiprocessing</strong></td><td>Отдельные процессы (обход GIL)</td><td><code>multiprocessing.Pool</code></td></tr>
-          <tr><td><strong>async</strong></td><td>asyncio.to_thread (делегирование в потоки)</td><td><code>asyncio.to_thread</code></td></tr>
+          <tr><td>Потоки</td><td><code>threading</code></td><td>Параллелизм в одном процессе</td></tr>
+          <tr><td>Процессы</td><td><code>multiprocessing</code></td><td>Обход GIL через отдельные процессы</td></tr>
+          <tr><td>Асинхронность</td><td><code>asyncio</code> + <code>aiohttp</code></td><td>Кооперативная многозадачность, I/O</td></tr>
+          <tr><td>HTTP (синхр.)</td><td><code>requests</code></td><td>HTTP-запросы в threading/multiprocessing</td></tr>
+          <tr><td>Парсинг HTML</td><td><code>beautifulsoup4</code></td><td>Извлечение &lt;title&gt; из HTML</td></tr>
+          <tr><td>ORM</td><td><code>SQLAlchemy 2.0 async</code></td><td>Async-доступ к PostgreSQL</td></tr>
+          <tr><td>Драйвер БД (async)</td><td><code>asyncpg</code></td><td>Асинхронный драйвер PostgreSQL</td></tr>
+          <tr><td>Драйвер БД (sync)</td><td><code>psycopg2</code></td><td>Синхронный драйвер для threading/multiprocessing</td></tr>
+          <tr><td>Окружение</td><td><code>python-dotenv</code></td><td>Переменные окружения из .env</td></tr>
+          <tr><td>Инфраструктура</td><td><code>Docker Compose</code></td><td>Запуск PostgreSQL на конфигурируемом порту</td></tr>
         </tbody>
       </table>
     </div>
+  </div>
+
+  <!-- Структура проекта -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      Структура проекта
+    </h2>
+    <div class="file-tree">
+<span class="dir">Lr2/</span>
+├── <span class="file">README.md</span>                    <span class="note"># документация</span>
+├── <span class="file">requirements.txt</span>             <span class="note"># зависимости</span>
+├── <span class="file">.env-example</span>                 <span class="note"># переменные окружения (POSTGRES_PORT и др.)</span>
+├── <span class="file">docker-compose.yml</span>           <span class="note"># PostgreSQL на конфигурируемом порту</span>
+├── <span class="file">config.py</span>                    <span class="note"># загрузка DATABASE_URL из .env</span>
+├── <span class="file">database.py</span>                  <span class="note"># async engine, async_session_maker, init_db()</span>
+├── <span class="file">models.py</span>                    <span class="note"># модель ParsedPage (SQLAlchemy)</span>
+├── <span class="dir">task1/</span>
+│   ├── <span class="file">threading_sum.py</span>         <span class="note"># Задача 1 — threading</span>
+│   ├── <span class="file">multiprocessing_sum.py</span>   <span class="note"># Задача 1 — multiprocessing</span>
+│   └── <span class="file">async_sum.py</span>             <span class="note"># Задача 1 — asyncio (to_thread)</span>
+└── <span class="dir">task2/</span>
+    ├── <span class="file">threading_parser.py</span>      <span class="note"># Задача 2 — ThreadPoolExecutor + requests + psycopg2</span>
+    ├── <span class="file">multiprocessing_parser.py</span><span class="note"># Задача 2 — Pool + requests + psycopg2</span>
+    └── <span class="file">async_parser.py</span>          <span class="note"># Задача 2 — aiohttp + SQLAlchemy async + asyncpg</span>
+    </div>
+  </div>
+
+  <!-- Задача 1: Код -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Задача 1 — Параллельное суммирование
+    </h2>
+    <p>Вычисление суммы всех целых чисел от 1 до 1 000 000 000 с разбивкой на 8 подзадач.</p>
+
+    <h3>Threading</h3>
+    <pre><code># task1/threading_sum.py
+import threading
+
+N = 1_000_000_000
+NUM_WORKERS = 8
+
+def partial_sum(start, end, results, idx):
+    s = 0
+    for i in range(start, end + 1):
+        s += i
+    results[idx] = s
+
+def main():
+    chunk_size = N // NUM_WORKERS
+    results = [0] * NUM_WORKERS
+    threads = []
+    for i in range(NUM_WORKERS):
+        start = i * chunk_size + 1
+        end = (i + 1) * chunk_size if i < NUM_WORKERS - 1 else N
+        t = threading.Thread(target=partial_sum, args=(start, end, results, i))
+        threads.append(t)
+        t.start()
+    for t in threads:
+        t.join()
+    total = sum(results)
+    print(f"Result: {total:,}  Correct: {total == N*(N+1)//2}")</code></pre>
+
+    <h3>Multiprocessing</h3>
+    <pre><code># task1/multiprocessing_sum.py
+from multiprocessing import Pool
+
+def partial_sum(args):
+    start, end = args
+    s = 0
+    for i in range(start, end + 1):
+        s += i
+    return s
+
+def main():
+    ranges = [(i*chunk+1, (i+1)*chunk) for i in range(8)]
+    with Pool(processes=8) as pool:
+        partial_sums = pool.map(partial_sum, ranges)
+    total = sum(partial_sums)</code></pre>
+
+    <h3>Async (to_thread)</h3>
+    <pre><code># task1/async_sum.py
+import asyncio
+
+def partial_sum(start, end):
+    s = 0
+    for i in range(start, end + 1):
+        s += i
+    return s
+
+async def main():
+    tasks = [asyncio.to_thread(partial_sum, start, end) for ...]
+    partial_sums = await asyncio.gather(*tasks)
+    total = sum(partial_sums)</code></pre>
 
     <h3>Результаты замеров</h3>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Подход</th><th>Время выполнения</th></tr></thead>
+        <thead><tr><th>Подход</th><th>Время</th><th>Механизм</th></tr></thead>
         <tbody>
-          <tr><td>threading</td><td>~X.X с (ожидание GIL)</td></tr>
-          <tr><td>multiprocessing</td><td>~X.X с (реальный параллелизм)</td></tr>
-          <tr><td>async (to_thread)</td><td>~X.X с (аналогично threading)</td></tr>
+          <tr><td><code>threading</code></td><td>26.52 с</td><td>Потоки, GIL ограничивает CPU-работу</td></tr>
+          <tr><td><code>multiprocessing</code></td><td>24.60 с</td><td>Отдельные процессы, реальный параллелизм</td></tr>
+          <tr><td><code>async (to_thread)</code></td><td>23.69 с</td><td>Делегирование в потоки через asyncio</td></tr>
         </tbody>
       </table>
     </div>
+    <p style="font-size:0.8rem; color: var(--text-secondary)">Замеры на 8-ядерном CPU. Результат: 500 000 000 500 000 000 ✓ (проверено формулой n·(n+1)/2).</p>
   </div>
 
-  <!-- Задача 2 -->
+  <!-- Задача 2: Код -->
   <div class="section">
     <h2>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       Задача 2 — Параллельный парсинг веб-страниц
     </h2>
-    <p>Параллельное извлечение заголовков из 10 URL с сохранением в PostgreSQL (таблица <code>parsed_page</code>):</p>
+    <p>Парсинг 10 веб-страниц, извлечение заголовков <code>&lt;title&gt;</code>, сохранение в PostgreSQL.</p>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Подход</th><th>HTTP</th><th>БД</th><th>Параллелизм</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>threading</strong></td><td><code>requests</code></td><td><code>psycopg2</code></td><td>ThreadPoolExecutor</td></tr>
-          <tr><td><strong>multiprocessing</strong></td><td><code>requests</code></td><td><code>psycopg2</code></td><td>multiprocessing.Pool</td></tr>
-          <tr><td><strong>async</strong></td><td><code>aiohttp</code></td><td><code>asyncpg</code></td><td>asyncio.gather + Semaphore</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <h3>Threading (requests + psycopg2)</h3>
+    <pre><code># task2/threading_parser.py
+from concurrent.futures import ThreadPoolExecutor
+import requests, psycopg2
+from bs4 import BeautifulSoup
+
+def parse_and_save(url):
+    resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+    soup = BeautifulSoup(resp.text, "html.parser")
+    title = soup.title.string.strip()
+
+    conn = psycopg2.connect(SYNC_DSN)
+    cur = conn.cursor()
+    cur.execute("INSERT INTO parsed_page (url, title) VALUES (%s, %s) RETURNING id", (url, title))
+    row_id = cur.fetchone()[0]
+    conn.commit()
+    return {"id": row_id, "url": url, "title": title}
+
+with ThreadPoolExecutor(max_workers=5) as executor:
+    futures = {executor.submit(parse_and_save, url): url for url in URLS}</code></pre>
+
+    <h3>Multiprocessing (requests + psycopg2)</h3>
+    <pre><code># task2/multiprocessing_parser.py
+from multiprocessing import Pool
+
+def parse_and_save(url):
+    # Идентичная логика с threading_parser
+    # Каждый процесс открывает своё подключение к БД
+    ...
+
+with Pool(processes=5) as pool:
+    results = pool.map(parse_and_save, URLS)</code></pre>
+
+    <h3>Async (aiohttp + asyncpg)</h3>
+    <pre><code># task2/async_parser.py
+import aiohttp, asyncio
+from database import async_session_maker, init_db
+from models import ParsedPage
+
+async def fetch_title(session, url):
+    async with session.get(url, timeout=..., headers={"User-Agent": "Mozilla/5.0"}) as resp:
+        html = await resp.text()
+        soup = BeautifulSoup(html, "html.parser")
+        return soup.title.string.strip()
+
+async def parse_and_save(session, sem, url):
+    async with sem:
+        title = await fetch_title(session, url)
+    async with async_session_maker() as db:
+        page = ParsedPage(url=url, title=title)
+        db.add(page)
+        await db.commit()
+        return {"id": page.id, "url": url, "title": title}
+
+async def main():
+    await init_db()
+    async with aiohttp.ClientSession() as session:
+        tasks = [parse_and_save(session, sem, url) for url in URLS]
+        results = await asyncio.gather(*tasks)</code></pre>
+
+    <h3>Список URL для парсинга</h3>
+    <ol>
+      <li>https://www.python.org → <em>Welcome to Python.org</em></li>
+      <li>https://en.wikipedia.org/wiki/Python_(programming_language) → <em>Python (programming language) - Wikipedia</em></li>
+      <li>https://fastapi.tiangolo.com → <em>FastAPI</em></li>
+      <li>https://www.sqlalchemy.org → <em>SQLAlchemy - The Database Toolkit for Python</em></li>
+      <li>https://www.djangoproject.com → <em>The web framework for perfectionists with deadlines | Django</em></li>
+      <li>https://github.com → <em>GitHub</em></li>
+      <li>https://en.wikipedia.org/wiki/Web_scraping → <em>Web scraping - Wikipedia</em></li>
+      <li>https://httpbin.org → <em>httpbin.org</em></li>
+      <li>https://pypi.org → <em>PyPI · The Python Package Index</em></li>
+      <li>https://docs.python.org/3/ → <em>3.14 Documentation</em></li>
+    </ol>
+    <p style="font-size: 0.8rem; color: var(--text-secondary)">Wikipedia требует заголовок User-Agent, иначе возвращает 403.</p>
 
     <h3>Результаты замеров</h3>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Подход</th><th>Время выполнения</th></tr></thead>
+        <thead><tr><th>Подход</th><th>HTTP</th><th>БД</th><th>Параллелизм</th></tr></thead>
         <tbody>
-          <tr><td>threading</td><td>~X.X с</td></tr>
-          <tr><td>multiprocessing</td><td>~X.X с</td></tr>
-          <tr><td>async</td><td>~X.X с</td></tr>
+          <tr><td><strong>threading</strong></td><td><code>requests</code></td><td><code>psycopg2</code></td><td>ThreadPoolExecutor</td></tr>
+          <tr><td><strong>multiprocessing</strong></td><td><code>requests</code></td><td><code>psycopg2</code></td><td>multiprocessing.Pool</td></tr>
+          <tr><td><strong>async</strong></td><td><code>aiohttp</code></td><td><code>asyncpg</code></td><td>asyncio.gather + Semaphore(5)</td></tr>
         </tbody>
       </table>
     </div>
+  </div>
+
+  <!-- Модель данных -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Модель данных
+    </h2>
+    <p>Используется та же база данных, что и в ЛР1 — <code>PostgreSQL 16 (finance_db)</code>. Добавлена таблица <code>parsed_page</code> для хранения результатов парсинга.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Поле</th><th>Тип</th><th>Описание</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>id</code></td><td>SERIAL PK</td><td>Автоинкрементный первичный ключ</td></tr>
+          <tr><td><code>url</code></td><td>TEXT NOT NULL</td><td>URL спаршенной страницы</td></tr>
+          <tr><td><code>title</code></td><td>VARCHAR(500) NOT NULL</td><td>Заголовок страницы (&lt;title&gt;)</td></tr>
+          <tr><td><code>parsed_at</code></td><td>TIMESTAMPTZ</td><td>Временная метка парсинга (UTC, default NOW())</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Модель SQLAlchemy</h3>
+    <pre><code># models.py
+from sqlalchemy import DateTime, Integer, String, Text, func
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+class Base(DeclarativeBase):
+    pass
+
+class ParsedPage(Base):
+    __tablename__ = "parsed_page"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    url: Mapped[str] = mapped_column(Text, nullable=False)
+    title: Mapped[str] = mapped_column(String(500), nullable=False)
+    parsed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())</code></pre>
+
+    <h3>Подключение к БД</h3>
+    <pre><code># database.py
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from config import DATABASE_URL
+
+engine = create_async_engine(DATABASE_URL)
+async_session_maker = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+async def init_db():
+    from models import Base
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)</code></pre>
+
+    <h3>Конфигурация из .env</h3>
+    <pre><code># config.py
+from dotenv import load_dotenv
+load_dotenv()
+
+POSTGRES_USER = os.getenv("POSTGRES_USER", "postgres")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "postgres")
+POSTGRES_DB = os.getenv("POSTGRES_DB", "finance_db")
+POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5433")
+
+DATABASE_URL = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@localhost:{POSTGRES_PORT}/{POSTGRES_DB}"</code></pre>
   </div>
 
   <!-- Общие выводы -->
@@ -125,18 +377,20 @@
           <tr><th>Критерий</th><th>threading</th><th>multiprocessing</th><th>asyncio</th></tr>
         </thead>
         <tbody>
-          <tr><td>GIL</td><td>Да (CPU страдает)</td><td>Нет</td><td>Да (один поток)</td></tr>
-          <tr><td>Память</td><td>Общая</td><td>Изолированная</td><td>Общая</td></tr>
+          <tr><td>GIL</td><td>Да (CPU страдает)</td><td>Нет (свой GIL на процесс)</td><td>Да (один поток)</td></tr>
+          <tr><td>Память</td><td>Общая</td><td>Изолированная (копия)</td><td>Общая</td></tr>
+          <tr><td>Создание</td><td>Быстрое</td><td>Медленное</td><td>Быстрое</td></tr>
           <tr><td>I/O-bound</td><td>Хорошо</td><td>Избыточно</td><td>Отлично</td></tr>
-          <tr><td>CPU-bound</td><td>Плохо</td><td>Отлично</td><td>Плохо</td></tr>
+          <tr><td>CPU-bound</td><td>Плохо</td><td>Отлично</td><td>Плохо (нужен to_thread)</td></tr>
+          <tr><td>Сложность</td><td>Низкая</td><td>Средняя</td><td>Средняя</td></tr>
         </tbody>
       </table>
     </div>
 
     <h3>Рекомендации</h3>
-    <p><strong>CPU-bound → multiprocessing</strong> — единственный способ реального параллелизма в Python.</p>
-    <p><strong>I/O-bound → asyncio</strong> — максимальная эффективность, нет накладных расходов на потоки.</p>
-    <p><strong>threading</strong> — компромисс, когда нет асинхронных альтернатив нужных библиотек.</p>
+    <p><strong>CPU-bound задачи</strong> (вычисления, обработка данных) → <strong>multiprocessing</strong> — единственный способ получить реальный параллелизм в Python благодаря обходу GIL.</p>
+    <p><strong>I/O-bound задачи</strong> (сеть, диск, БД) → <strong>asyncio</strong> — наиболее эффективен, так как не тратит память на потоки и минимизирует накладные расходы на переключение контекста.</p>
+    <p><strong>threading</strong> — компромиссный вариант для I/O-bound, когда нет асинхронных альтернатив библиотек. Проще в использовании, но менее масштабируем, чем asyncio.</p>
   </div>
 
   <!-- Запуск -->
@@ -145,21 +399,27 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
       Запуск
     </h2>
-    <pre><code># Установить зависимости
+    <pre><code># 1. Скопировать .env-example → .env (порт настраивается в POSTGRES_PORT)
+cp .env-example .env
+
+# 2. Поднять PostgreSQL (порт из .env)
+docker-compose up -d
+
+# 3. Установить зависимости
 pip install -r requirements.txt
 
-# Запустить PostgreSQL (из ЛР1)
-cd ../Lr1 && docker-compose up -d
-
-# Задача 1
+# 4. Задача 1 — параллельное суммирование
 python task1/threading_sum.py
 python task1/multiprocessing_sum.py
 python task1/async_sum.py
 
-# Задача 2
+# 5. Задача 2 — параллельный парсинг
 python task2/threading_parser.py
 python task2/multiprocessing_parser.py
-python task2/async_parser.py</code></pre>
+python task2/async_parser.py
+
+# 6. Остановить PostgreSQL
+docker-compose down</code></pre>
   </div>
 
 </div>
