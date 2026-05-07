@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Лабораторная работа 2 — Шафиков Максим</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    Шафиков Максим · k3339
+  </div>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="lr1.html">Лаба 1</a>
+    <a href="lr2.html" class="active">Лаба 2</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Лабораторная работа 2</h1>
+    <p>Потоки. Процессы. Асинхронность. Параллельный парсинг веб-страниц с сохранением в БД.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        <a href="https://github.com/MrAmfix/ITMO_ICT_WebDevelopment_tools_2025-2026/tree/lab2" target="_blank">Код на GitHub</a>
+      </div>
+      <div class="meta-item"><span class="badge">Готово</span></div>
+    </div>
+  </div>
+
+  <!-- Цель -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      Цель работы
+    </h2>
+    <p>Понять отличия между потоками (threading), процессами (multiprocessing) и асинхронностью (asyncio) в Python, научиться применять каждый подход для параллельного выполнения задач — как вычислительных (CPU-bound), так и ввода-вывода (I/O-bound).</p>
+  </div>
+
+  <!-- Задача 1 -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      Задача 1 — Сумма чисел
+    </h2>
+    <p>Вычисление суммы от 1 до 1 000 000 000 с разбиением на 8 подзадач тремя разными подходами:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Подход</th><th>Механизм</th><th>Модуль</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>threading</strong></td><td>Потоки (один процесс)</td><td><code>threading.Thread</code></td></tr>
+          <tr><td><strong>multiprocessing</strong></td><td>Отдельные процессы (обход GIL)</td><td><code>multiprocessing.Pool</code></td></tr>
+          <tr><td><strong>async</strong></td><td>asyncio.to_thread (делегирование в потоки)</td><td><code>asyncio.to_thread</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Результаты замеров</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Подход</th><th>Время выполнения</th></tr></thead>
+        <tbody>
+          <tr><td>threading</td><td>~X.X с (ожидание GIL)</td></tr>
+          <tr><td>multiprocessing</td><td>~X.X с (реальный параллелизм)</td></tr>
+          <tr><td>async (to_thread)</td><td>~X.X с (аналогично threading)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Задача 2 -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Задача 2 — Параллельный парсинг веб-страниц
+    </h2>
+    <p>Параллельное извлечение заголовков из 10 URL с сохранением в PostgreSQL (таблица <code>parsed_page</code>):</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Подход</th><th>HTTP</th><th>БД</th><th>Параллелизм</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>threading</strong></td><td><code>requests</code></td><td><code>psycopg2</code></td><td>ThreadPoolExecutor</td></tr>
+          <tr><td><strong>multiprocessing</strong></td><td><code>requests</code></td><td><code>psycopg2</code></td><td>multiprocessing.Pool</td></tr>
+          <tr><td><strong>async</strong></td><td><code>aiohttp</code></td><td><code>asyncpg</code></td><td>asyncio.gather + Semaphore</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Результаты замеров</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Подход</th><th>Время выполнения</th></tr></thead>
+        <tbody>
+          <tr><td>threading</td><td>~X.X с</td></tr>
+          <tr><td>multiprocessing</td><td>~X.X с</td></tr>
+          <tr><td>async</td><td>~X.X с</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Общие выводы -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Общие выводы
+    </h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Критерий</th><th>threading</th><th>multiprocessing</th><th>asyncio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GIL</td><td>Да (CPU страдает)</td><td>Нет</td><td>Да (один поток)</td></tr>
+          <tr><td>Память</td><td>Общая</td><td>Изолированная</td><td>Общая</td></tr>
+          <tr><td>I/O-bound</td><td>Хорошо</td><td>Избыточно</td><td>Отлично</td></tr>
+          <tr><td>CPU-bound</td><td>Плохо</td><td>Отлично</td><td>Плохо</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Рекомендации</h3>
+    <p><strong>CPU-bound → multiprocessing</strong> — единственный способ реального параллелизма в Python.</p>
+    <p><strong>I/O-bound → asyncio</strong> — максимальная эффективность, нет накладных расходов на потоки.</p>
+    <p><strong>threading</strong> — компромисс, когда нет асинхронных альтернатив нужных библиотек.</p>
+  </div>
+
+  <!-- Запуск -->
+  <div class="section">
+    <h2>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Запуск
+    </h2>
+    <pre><code># Установить зависимости
+pip install -r requirements.txt
+
+# Запустить PostgreSQL (из ЛР1)
+cd ../Lr1 && docker-compose up -d
+
+# Задача 1
+python task1/threading_sum.py
+python task1/multiprocessing_sum.py
+python task1/async_sum.py
+
+# Задача 2
+python task2/threading_parser.py
+python task2/multiprocessing_parser.py
+python task2/async_parser.py</code></pre>
+  </div>
+
+</div>
+</body>
+</html>

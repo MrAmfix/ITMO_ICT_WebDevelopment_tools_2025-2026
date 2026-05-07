@@ -1,0 +1,7 @@
+aiohttp>=3.9
+asyncpg>=0.29
+beautifulsoup4>=4.12
+psycopg2-binary>=2.9
+python-dotenv>=1.0
+requests>=2.31
+SQLAlchemy[asyncio]>=2.0
