@@ -51,7 +51,7 @@ def init_table():
 def parse_and_save(url: str) -> dict:
     """Fetch a page, extract its title, save to DB."""
     try:
-        resp = requests.get(url, timeout=10)
+        resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
         resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "html.parser")
         title = soup.title.string.strip() if soup.title and soup.title.string else "No title"
